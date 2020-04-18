@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class BlobbySpawner : MonoBehaviour
 {
 
-	public HUD hud;
 	public int queueLength = 3;
+	HUD hud;
 
 	void Awake()
 	{
+		hud = HUD.GetHUD();
 		StopSpawner();
 	}
 

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BlobbySpawnerShopItem : MonoBehaviour, IShopItem
 {
-
 	public Sprite shopItemSprite;
+	public Sprite shopCurrencySprite;
 	public string shopItemName;
 	public int shopCost;
 
-	public Sprite GetSprite()
+	public Sprite GetItemSprite()
 	{
 		return shopItemSprite;
 	}
@@ -39,4 +39,8 @@ public class BlobbySpawnerShopItem : MonoBehaviour, IShopItem
 		return gameObject;
 	}
 
+	public Sprite GetCurrencySprite()
+	{
+		return shopCurrencySprite;
+	}
 }

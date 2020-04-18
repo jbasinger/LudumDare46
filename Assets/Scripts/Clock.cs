@@ -5,7 +5,7 @@ using UnityEngine;
 public class Clock : MonoBehaviour
 {
 
-	public HUD hud;
+	HUD hud;
 
 	[Range(0, 23)]
 	public int hour = 8;
@@ -17,6 +17,7 @@ public class Clock : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		hud = HUD.GetHUD();
 		nextMinute = Time.time;
 	}
 

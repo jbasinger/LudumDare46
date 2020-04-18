@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IShopManager {
+	void BuyItem(int index);
+}
+
 public interface IShopItem
 {
-	Sprite GetSprite();
+	Sprite GetItemSprite();
+	Sprite GetCurrencySprite();
 	string GetName();
 	int GetCost();
 	bool Placed();
@@ -23,19 +28,24 @@ public class PotentialPurchaseItem
 	public GameObject ItemInstance { get; set; }
 }
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : MonoBehaviour, IShopManager
 {
 
 	public bool isPlacingItem;
 	public GameObject itemParent;
-	public HUD hud;
 	public int coins = 10000;
 	public EventLogManager logManager;
 	public ShopItemLabel shopItemLabelPrefab;
 	public List<GameObject> shopItemPrefabs = new List<GameObject>();
-	
+
+	HUD hud;
 	PotentialPurchaseItem itemBeingBought;
 	
+	void Start()
+	{
+		hud = HUD.GetHUD();
+	}
+
 	void Update()
 	{
 		hud.UpdateCoins(coins);

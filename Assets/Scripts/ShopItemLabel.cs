@@ -8,14 +8,16 @@ using System.IO;
 public class ShopItemLabel : MonoBehaviour
 {
 
-	Image image;
+	Image itemImage;
+	Image currencyImage;
 	TextMeshProUGUI nameLabel;
 	TextMeshProUGUI costLabel;
 	Button button;
 
-	public void SetShopItem(int itemIndex, IShopItem item, ShopManager shop)
+	public void SetShopItem(int itemIndex, IShopItem item, IShopManager shop)
 	{
-		image.sprite = item.GetSprite();
+		itemImage.sprite = item.GetItemSprite();
+		currencyImage.sprite = item.GetCurrencySprite();
 		nameLabel.text = item.GetName();
 		costLabel.text = item.GetCost().ToString("n0");
 		button.onClick.AddListener(delegate { shop.BuyItem(itemIndex); });
@@ -30,9 +32,11 @@ public class ShopItemLabel : MonoBehaviour
 		for(int i = 0; i < images.Length; i++)
 		{
 			if (images[i].name == "ItemImage")
-				image = images[i];
+				itemImage = images[i];
+
+			if (images[i].name == "CurrencyImage")
+				currencyImage = images[i];
 		}
-		
 
 		TextMeshProUGUI[] labels = GetComponentsInChildren<TextMeshProUGUI>();
 		for(int i = 0; i < labels.Length; i++)

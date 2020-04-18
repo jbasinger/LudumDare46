@@ -237,6 +237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopItemSprite: {fileID: -4776977521282215698, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
     type: 3}
+  shopCurrencySprite: {fileID: -4189228413954895439, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
+    type: 3}
   shopItemName: Incubator
   shopCost: 100
 --- !u!114 &1249762373753199306
@@ -251,6 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1a4cf9fd0ab6947ab11a39472dcafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hud: {fileID: 0}
+  queueLength: 3
 --- !u!1 &5220276608816388244
 GameObject:
   m_ObjectHideFlags: 0

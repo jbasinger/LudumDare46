@@ -48,6 +48,11 @@ public class HUD : MonoBehaviour
 		}
 	}
 
+	public static HUD GetHUD()
+	{
+		return GameObject.Find("HUD").GetComponent<HUD>();
+	}
+
 	public void ToggleMenu(Menu item, List<GameObject> itemList)
 	{
 		if (currentMenu == item)
