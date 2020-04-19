@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1019174398898302568}
   - component: {fileID: 1019174398898302575}
   - component: {fileID: 1019174398898302574}
-  - component: {fileID: 7594044494057411252}
   m_Layer: 0
   m_Name: BlobbyTrap
   m_TagString: Untagged
@@ -103,6 +102,7 @@ MonoBehaviour:
     type: 3}
   trappedPrefab: {fileID: 7870478865490077142, guid: aa2f0e9370bbe1e498aa0db195c82b9a,
     type: 3}
+  cost: 5
 --- !u!61 &1019174398898302574
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -129,21 +129,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.875, y: 0.9375}
   m_EdgeRadius: 0
---- !u!114 &7594044494057411252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019174398898302571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12ca816697ff352478d1f9873563b93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopItemSprite: {fileID: -5599836291759611186, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
-    type: 3}
-  shopCurrencySprite: {fileID: -4189228413954895439, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
-    type: 3}
-  shopItemName: Trap
-  shopCost: 5

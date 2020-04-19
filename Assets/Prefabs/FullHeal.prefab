@@ -119,4 +119,4 @@ MonoBehaviour:
     type: 3}
   cost: 50
   replenish: 100
-  type: 0
+  type: 2

@@ -8,6 +8,7 @@ public class BlobbyTrap : MonoBehaviour, IShopItem
 	public Sprite itemSprite;
 	public Sprite currencySprite;
 	public TrappedBlobby trappedPrefab;
+	public int cost;
 	BoxCollider2D boxCollider;
 	ShopManager shop;
 	GameData data;
@@ -69,7 +70,7 @@ public class BlobbyTrap : MonoBehaviour, IShopItem
 
 	public int GetCost()
 	{
-		return 15;
+		return cost;
 	}
 
 	public bool Placed()

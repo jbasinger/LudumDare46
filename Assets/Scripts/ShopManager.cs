@@ -81,7 +81,7 @@ public class ShopManager : MonoBehaviour, IShopManager
 				{
 					coins -= itemBeingBought.Item.GetCost();
 					isPlacingItem = false;
-					logManager.AddEvent($"You buy a {itemBeingBought.Item.GetName()}");
+					logManager.AddEvent($"Bought {itemBeingBought.Item.GetName().ToLower()}");
 				}
 			}
 			if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
