@@ -83,6 +83,18 @@ TextureImporter:
   - first:
       213: -3360242920267889608
     second: Blobby_22
+  - first:
+      213: 4941121697072149507
+    second: Blobby_23
+  - first:
+      213: -2203906534140013740
+    second: Blobby_24
+  - first:
+      213: -8648605551465247747
+    second: Blobby_25
+  - first:
+      213: 2017920325528248202
+    second: Blobby_26
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -679,6 +691,90 @@ TextureImporter:
       bones: []
       spriteID: 834496a0ed40e51d0800000000000000
       internalID: -3360242920267889608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blobby_23
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 388
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304f5f91104629440800000000000000
+      internalID: 4941121697072149507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blobby_24
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 320
+        width: 34
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4531c6a1fa62a61e0800000000000000
+      internalID: -2203906534140013740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blobby_25
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 320
+        width: 42
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfb417eb21bf9f780800000000000000
+      internalID: -8648605551465247747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blobby_26
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 328
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8fd62c38d7110c10800000000000000
+      internalID: 2017920325528248202
       vertices: []
       indices: 
       edges: []

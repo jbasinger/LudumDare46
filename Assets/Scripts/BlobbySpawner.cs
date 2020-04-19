@@ -6,7 +6,7 @@ public class QueuedBlobby
 {
 	public QueuedBlobby()
 	{
-		Color = Random.ColorHSV(0, 1, .5f, 1, 1, 1);
+		Color = Random.ColorHSV(0, 1, .5f, 1, 1, 1, 1, 1);
 		CurrentTime = 0;
 	}
 	public string Name { get; set; }
@@ -65,8 +65,11 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 		bool didOne = false;
 		foreach(QueuedBlobby b in doneBlobbys)
 		{
-			GameObject freshBlobby = Instantiate(blobbyPrefab);
+			GameObject objBlobby = Instantiate(blobbyPrefab);
+			Blobby freshBlobby = objBlobby.GetComponent<Blobby>();
 			freshBlobby.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle.normalized * 3;
+			freshBlobby.color = b.Color;
+			freshBlobby.name = b.Name;
 			log.AddEvent($"{b.Name} is born!");
 			queuedBlobbies.Remove(b);
 			didOne = true;
@@ -119,7 +122,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 		foreach (QueuedBlobby b in queuedBlobbies)
 		{
 			BuildingItemLabel item = Instantiate(blobListItemPrefab);
-			item.SetBuildItem(blobbySprite, b.Name, b.PercentComplete());
+			item.SetBuildItem(blobbySprite, b.Color, b.Name, b.PercentComplete());
 			itemLabels.Add(item.gameObject);
 			b.Label = item;
 		}
@@ -186,11 +189,42 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 	{
 		if (queuedBlobbies.Count < queueLength)
 		{
-			queuedBlobbies.Add(new QueuedBlobby() { Name = "Geophph", TimeDone = blobbyCookTime });
+			queuedBlobbies.Add(new QueuedBlobby() { Name = RandomName(), TimeDone = blobbyCookTime });
 			hud.ToggleMenu(Menu.None, new List<GameObject>());
 			CleanGameObjectRefs();
 			UpdateMenu();
 			log.AddEvent("You begin to grow a blobby.");
 		}
 	}
+
+	private string RandomName()
+	{
+		string[] name =
+		{
+			"Geophph",
+			"Jojo",
+			"Beany",
+			"Pelzers",
+			"Queen Bee",
+			"Harpsie",
+			"Nonette",
+			"ur mom lol",
+			"Chunk",
+			"Jim",
+			"Bob",
+			"BILLY!",
+			"KoolAid",
+			"Fred",
+			"Splat",
+			"Squish",
+			"Plop",
+			"Gum Drop",
+			"Gary",
+			"Finn",
+			"Jake"
+		};
+
+		return name[Random.Range(0, name.Length)];
+	}
+
 }

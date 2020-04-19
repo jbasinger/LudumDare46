@@ -25,9 +25,12 @@ public class Clock : MonoBehaviour
 	void Update()
 	{
 
+		if (minute <= 0 && hour <= 0)
+			return;
+
 		if (Time.time > nextMinute)
 		{
-			minute++;
+			minute--;
 			nextMinute = Time.time + minutesPerSecond;
 		}
 
@@ -37,11 +40,20 @@ public class Clock : MonoBehaviour
 			minute = 0;
 		}
 
+		if (minute <= 0 && hour > 0)
+		{
+			minute = 59;
+			hour--;
+		}
+
 		if (hour > 23)
 		{
 			hour = 0;
 		}
 
+		if (hour <= 0)
+			hour = 0;
+		
 		hud.UpdateTime(hour, minute);
 
 	}

@@ -24,9 +24,10 @@ public class BuildingItemLabel : MonoBehaviour
 		nameLabel = GetComponentInChildren<TextMeshProUGUI>();
 	}
 
-	public void SetBuildItem(Sprite buildingSprite,string name, float progress)
+	public void SetBuildItem(Sprite buildingSprite, Color imageColor, string name, float progress)
 	{
 		itemImage.sprite = buildingSprite;
+		itemImage.color = imageColor;
 		nameLabel.text = name;
 		UpdateProgress(progress);
 	}

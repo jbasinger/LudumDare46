@@ -41,6 +41,11 @@ public class ShopManager : MonoBehaviour, IShopManager
 	EventLogManager logManager;
 	PotentialPurchaseItem itemBeingBought;
 	
+	public static ShopManager GetManager()
+	{
+		return GameObject.Find("ShopManager").GetComponent<ShopManager>();
+	}
+
 	void Start()
 	{
 		hud = HUD.GetHUD();
