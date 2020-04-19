@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 70149532}
   - component: {fileID: 70149531}
   - component: {fileID: 70149530}
+  - component: {fileID: 70149534}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -295,6 +296,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &70149534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70149529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77b57a139a2b8444a63e06d34489ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worth: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &104015487
 GameObject:
   m_ObjectHideFlags: 0
@@ -3924,12 +3939,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlacingItem: 0
   itemParent: {fileID: 189049747}
-  coins: 10000
+  coins: 300
   shopItemLabelPrefab: {fileID: 7384912166746088519, guid: 6d757c5b1e9ab0e40b12b144cb71c68e,
     type: 3}
   shopItemPrefabs:
   - {fileID: 5220276608190611632, guid: 9ff0e65df7923ae409d58b6234dd0b34, type: 3}
   - {fileID: 5551123809569386009, guid: ce55cc83477dd7e40adfd2ff294caa03, type: 3}
+  - {fileID: 6131268038975707443, guid: 23ac4997479fb6b4b9b2a0659d971025, type: 3}
+  - {fileID: 8247865014492502298, guid: 3bae9d2c0ec5a5c4a9929ff72b8f3714, type: 3}
+  - {fileID: 1019174398898302571, guid: 490f267cb120f824783fa17f0d6982ff, type: 3}
 --- !u!1 &1923608180
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class Blobby : MonoBehaviour
 {
-	public string name;
+	public string blobbyName;
 	public Color color;
 
 	public float currentHP;
-	public float maxHP=100;
+	public float maxHP = 100;
 
 	public float currentHunger;
-	public float maxHunger=100;
+	public float maxHunger = 100;
 
 	public float boredChance = .5f;
 	public float hungerCooldown = 10;
@@ -40,7 +40,7 @@ public class Blobby : MonoBehaviour
 	float thinkingTime;
 	float wanderingTime;
 	float attackTime;
-	SpriteRenderer renderer;
+	SpriteRenderer spriteRenderer;
 	EventLogManager log;
 	ShopManager shopManager;
 	Image hpBar;
@@ -48,12 +48,12 @@ public class Blobby : MonoBehaviour
 
 	private void Awake()
 	{
-		renderer = GetComponent<SpriteRenderer>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		log = EventLogManager.GetManager();
 		shopManager = ShopManager.GetManager();
 
 		Image[] imgs = GetComponentsInChildren<Image>();
-		for(int i = 0; i < imgs.Length; i++)
+		for (int i = 0; i < imgs.Length; i++)
 		{
 			if (imgs[i].name == "CurrentHP")
 				hpBar = imgs[i];
@@ -62,14 +62,14 @@ public class Blobby : MonoBehaviour
 		}
 
 		currentHP = maxHP;
-		currentHunger = maxHunger/2;
+		currentHunger = maxHunger / 2;
 		hungerTime = Random.Range(hungerCooldown / 2, hungerCooldown * 1.5f);
 	}
-	
+
 	// Update is called once per frame
 	void Update()
 	{
-		renderer.color = color;
+		spriteRenderer.color = color;
 
 		if (isDead)
 		{
@@ -81,7 +81,7 @@ public class Blobby : MonoBehaviour
 		DoAI();
 		CheckLimits();
 		UpdateUI();
-		
+
 	}
 
 	void CheckLimits()
@@ -113,7 +113,7 @@ public class Blobby : MonoBehaviour
 				worth -= hit / 50;
 				if (worth <= 1)
 					worth = 1;
-				log.AddEvent($"{name} is starving!");
+				log.AddEvent($"{blobbyName} is starving!");
 			}
 
 			if (currentHunger >= maxHunger)
@@ -124,7 +124,7 @@ public class Blobby : MonoBehaviour
 			isHungry = (currentHunger / maxHP) <= 0.5;
 			if (isHungry)
 			{
-				log.AddEvent($"{name} is getting hungry.");
+				log.AddEvent($"{blobbyName} is getting hungry.");
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class Blobby : MonoBehaviour
 		if (currentHP < 0)
 		{
 			color = Color.white;
-			log.AddEvent($"{name} has died!");
+			log.AddEvent($"{blobbyName} has died!");
 			isDead = true;
 			Destroy(gameObject, 3f);
 		}
@@ -200,7 +200,7 @@ public class Blobby : MonoBehaviour
 	{
 		//Change the wander position to the nearest food source.
 		GameObject[] foods = GameObject.FindGameObjectsWithTag("Food");
-		
+
 		if (foods.Length == 0)
 			return;
 
@@ -218,21 +218,32 @@ public class Blobby : MonoBehaviour
 		if (f != null)
 		{
 			float foodValue = Random.Range(f.replenish * .75f, f.replenish * 1.25f);
-			currentHunger += foodValue;
-			if(currentHunger > maxHunger)
+
+			if (f.type == FoodType.Heal)
 			{
-				worth += foodValue / 100;
+				currentHP += foodValue;
+				if (currentHP > maxHP)
+					currentHP = maxHP;
 			}
+			else
+			{
+				currentHunger += foodValue;
+				if (currentHunger > maxHunger)
+				{
+					worth += foodValue / 100;
+				}
+			}
+
 			isWandering = false;
 			Destroy(f.gameObject);
 		}
 
-		if (b != null && Random.value > blobbyBumpChance && attackTime<=0)
+		if (b != null && Random.value > blobbyBumpChance && attackTime <= 0)
 		{
 			b.currentHP -= Random.Range(blobbyAttack * 0.5f, blobbyAttack * 1.5f);
 			attackTime += Random.Range(attackCooldown * 0.5f, attackCooldown * 1.5f);
-			log.AddEvent($"{name} attacks {b.name}!");
-		}			
+			log.AddEvent($"{blobbyName} attacks {b.blobbyName}!");
+		}
 
 	}
 

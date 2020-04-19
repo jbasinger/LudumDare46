@@ -69,7 +69,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 			Blobby freshBlobby = objBlobby.GetComponent<Blobby>();
 			freshBlobby.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle.normalized * 3;
 			freshBlobby.color = b.Color;
-			freshBlobby.name = b.Name;
+			freshBlobby.blobbyName = b.Name;
 			log.AddEvent($"{b.Name} is born!");
 			queuedBlobbies.Remove(b);
 			didOne = true;

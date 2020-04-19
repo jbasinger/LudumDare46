@@ -67,7 +67,7 @@ public class ShopManager : MonoBehaviour, IShopManager
 				{
 					coins -= itemBeingBought.Item.GetCost();
 					isPlacingItem = false;
-					logManager.AddEvent($"You buy an {itemBeingBought.Item.GetName()}");
+					logManager.AddEvent($"You buy a {itemBeingBought.Item.GetName()}");
 				}
 			}
 			if (Input.GetMouseButtonDown(1))
@@ -85,6 +85,8 @@ public class ShopManager : MonoBehaviour, IShopManager
 		if (coins < itemBeingBought.Item.GetCost())
 		{
 			logManager.AddEvent($"You can't afford that.");
+			Destroy(itemBeingBought.ItemInstance);
+			isPlacingItem = false;
 			return;
 		}
 

@@ -985,7 +985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8198144179369484865}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.881439, y: -3.3085172, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1175107552}
@@ -1085,11 +1085,13 @@ MonoBehaviour:
   thinkingCooldown: 5
   wanderCooldown: 10
   attackCooldown: 10
+  hungerTick: 5
   wanderMaxDistance: 5
   maxMovementSpeed: 3
   dontWanderCheckRadius: 0.25
   blobbyBumpChance: 0.5
   blobbyAttack: 10
+  worth: 1
 --- !u!58 &5377842884437715778
 CircleCollider2D:
   m_ObjectHideFlags: 0
