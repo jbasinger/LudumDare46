@@ -10,6 +10,7 @@ public class QueuedBlobby
 		CurrentTime = 0;
 	}
 	public string Name { get; set; }
+	public int NameIndex { get; set; }
 	public Color Color { get; set; }
 	public float TimeDone { get; set; }
 	public float CurrentTime { get; set; }
@@ -34,15 +35,43 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 
 	private HUD hud;
 	private EventLogManager log;
+	private ShopManager shop;
+	private SoundManager sound;
 	private List<QueuedBlobby> queuedBlobbies = new List<QueuedBlobby>();
 	private List<QueuedBlobby> doneBlobbys = new List<QueuedBlobby>();
 	private List<GameObject> itemLabels = new List<GameObject>();
-	private bool isToggleUp = false;
+
+	private string[] names =
+		{
+			"Geophph",
+			"Jojo",
+			"Beany",
+			"Pelzers",
+			"Queen Bee",
+			"Harpsie",
+			"Nonette",
+			"ur mom",
+			"Chunk",
+			"Jim",
+			"Bob",
+			"BILLY!",
+			"KoolAid",
+			"Fred",
+			"Splat",
+			"Squish",
+			"Plop",
+			"Gum Drop",
+			"Gary",
+			"Finn",
+			"Jake"
+		};
 
 	void Awake()
 	{
 		hud = HUD.GetHUD();
 		log = EventLogManager.GetManager();
+		shop = ShopManager.GetManager();
+		sound = SoundManager.GetManager();
 		StopSpawner();
 	}
 
@@ -73,11 +102,12 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 			log.AddEvent($"{b.Name} is born!");
 			queuedBlobbies.Remove(b);
 			didOne = true;
+			sound.PlayNameClip(b.NameIndex);
 		}
 		
 		doneBlobbys.Clear();
 
-		if (didOne && isToggleUp)
+		if (didOne && hud.currentMenu == Menu.Spawner)
 		{
 			hud.ToggleMenu(Menu.None, new List<GameObject>());
 			CleanGameObjectRefs();
@@ -114,6 +144,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 	private void OnMouseUp()
 	{
 		UpdateMenu();
+		sound.PlayDrawerClip();
 	}
 
 	private void UpdateMenu()
@@ -134,7 +165,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 			itemLabels.Add(item.gameObject);
 		}
 
-		isToggleUp = hud.ToggleMenu(Menu.Spawner, itemLabels);
+		bool isToggleUp = hud.ToggleMenu(Menu.Spawner, itemLabels);
 
 		if (!isToggleUp)
 		{
@@ -173,6 +204,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 
 	public bool Placed()
 	{
+		sound.PlaySpawnerClip();
 		return true;
 	}
 
@@ -187,44 +219,24 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 
 	public void BuyItem(int index)
 	{
+		if(shop.coins < GetCost())
+		{
+			log.AddEvent("You can't afford that!");
+			sound.PlayRandomNoMoneyClip();
+			return;
+		}
+
 		if (queuedBlobbies.Count < queueLength)
 		{
-			queuedBlobbies.Add(new QueuedBlobby() { Name = RandomName(), TimeDone = blobbyCookTime });
+			shop.coins -= GetCost();
+			int nameIndex = Random.Range(0, names.Length);
+			queuedBlobbies.Add(new QueuedBlobby() { Name = names[nameIndex], NameIndex=nameIndex, TimeDone = blobbyCookTime });
 			hud.ToggleMenu(Menu.None, new List<GameObject>());
 			CleanGameObjectRefs();
 			UpdateMenu();
+			sound.PlayChachingClip();
 			log.AddEvent("You begin to grow a blobby.");
 		}
-	}
-
-	private string RandomName()
-	{
-		string[] name =
-		{
-			"Geophph",
-			"Jojo",
-			"Beany",
-			"Pelzers",
-			"Queen Bee",
-			"Harpsie",
-			"Nonette",
-			"ur mom lol",
-			"Chunk",
-			"Jim",
-			"Bob",
-			"BILLY!",
-			"KoolAid",
-			"Fred",
-			"Splat",
-			"Squish",
-			"Plop",
-			"Gum Drop",
-			"Gary",
-			"Finn",
-			"Jake"
-		};
-
-		return name[Random.Range(0, name.Length)];
 	}
 
 }

@@ -1074,13 +1074,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5a0a85c5cd7c749894ce07738bddbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  blobbyName: 
   color: {r: 1, g: 0.48900002, b: 0.9372985, a: 0}
   currentHP: 0
   maxHP: 100
   currentHunger: 0
   maxHunger: 100
-  boredChance: 0
+  angryChance: 0.1
   hungerCooldown: 10
   thinkingCooldown: 5
   wanderCooldown: 10
@@ -1091,7 +1091,7 @@ MonoBehaviour:
   dontWanderCheckRadius: 0.25
   blobbyBumpChance: 0.5
   blobbyAttack: 10
-  worth: 1
+  chonk: 1
 --- !u!58 &5377842884437715778
 CircleCollider2D:
   m_ObjectHideFlags: 0

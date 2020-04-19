@@ -23,7 +23,7 @@ public class HUD : MonoBehaviour
 	public TextMeshProUGUI latestEventLabel;
 	public float removeEventTime = 4f;
 
-	Menu currentMenu = Menu.None;
+	public Menu currentMenu = Menu.None;
 	float nextTime = 0;
 
 	void Start()

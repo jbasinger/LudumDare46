@@ -10,11 +10,15 @@ public class BlobbyTrap : MonoBehaviour, IShopItem
 	public TrappedBlobby trappedPrefab;
 	BoxCollider2D boxCollider;
 	ShopManager shop;
+	GameData data;
+	SoundManager sound;
 
 	// Start is called before the first frame update
 	void Awake()
 	{
+		sound = SoundManager.GetManager();
 		shop = ShopManager.GetManager();
+		data = GameData.GetData();
 		boxCollider = GetComponent<BoxCollider2D>();
 		boxCollider.enabled = false;
 	}
@@ -34,11 +38,14 @@ public class BlobbyTrap : MonoBehaviour, IShopItem
 		TrappedBlobby trapped = Instantiate(trappedPrefab);
 
 		trapped.color = b.color;
-		trapped.worth = b.worth;
+		trapped.worth = b.chonk;
 
 		trapped.gameObject.transform.position = transform.position;
 
-		shop.MakeMoney((int)b.worth * 10);
+		shop.MakeMoney((int)b.GetBlobWorth());
+		data.blobbiesSacrificed += 1;
+
+		sound.PlayTrapClip();
 
 		Destroy(gameObject);
 		Destroy(b.gameObject);

@@ -36,10 +36,14 @@ public class ShopManager : MonoBehaviour, IShopManager
 	public int coins = 10000;
 	public ShopItemLabel shopItemLabelPrefab;
 	public List<GameObject> shopItemPrefabs = new List<GameObject>();
+	public float coinCooldown = 2;
+	public float coinPerProc = 1;
+	public float coinTime;
 
 	HUD hud;
 	EventLogManager logManager;
 	PotentialPurchaseItem itemBeingBought;
+	SoundManager sound;
 	
 	public static ShopManager GetManager()
 	{
@@ -48,13 +52,23 @@ public class ShopManager : MonoBehaviour, IShopManager
 
 	void Start()
 	{
+		sound = SoundManager.GetManager();
 		hud = HUD.GetHUD();
 		logManager = EventLogManager.GetManager();
+		coinTime = coinCooldown;
 	}
 
 	void Update()
 	{
 		hud.UpdateCoins(coins);
+
+		coinTime -= Time.deltaTime;
+		if (coinTime <= 0)
+		{
+			MakeMoney((int)coinPerProc);
+			coinTime = coinCooldown;
+		}
+
 		if (isPlacingItem)
 		{
 
@@ -70,8 +84,9 @@ public class ShopManager : MonoBehaviour, IShopManager
 					logManager.AddEvent($"You buy a {itemBeingBought.Item.GetName()}");
 				}
 			}
-			if (Input.GetMouseButtonDown(1))
+			if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
 			{
+				Destroy(itemBeingBought.ItemInstance);
 				isPlacingItem = false;
 			}
 		}
@@ -85,11 +100,13 @@ public class ShopManager : MonoBehaviour, IShopManager
 		if (coins < itemBeingBought.Item.GetCost())
 		{
 			logManager.AddEvent($"You can't afford that.");
+			sound.PlayRandomNoMoneyClip();
 			Destroy(itemBeingBought.ItemInstance);
 			isPlacingItem = false;
 			return;
 		}
 
+		sound.PlayChachingClip();
 		isPlacingItem = true;
 		ToggleShoppingList();
 	}
@@ -112,6 +129,7 @@ public class ShopManager : MonoBehaviour, IShopManager
 		}
 
 		hud.ToggleMenu(Menu.Shop, itemList);
+		sound.PlayDrawerClip();
 
 	}
 

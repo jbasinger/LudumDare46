@@ -256,7 +256,7 @@ MonoBehaviour:
   energySprite: {fileID: -4189228413954895439, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
     type: 3}
   blobbySprite: {fileID: 21300000, guid: cb61f96bce2d1874ab528ee4317fc9ea, type: 3}
-  cost: 50
+  cost: 10
   queueLength: 5
   blobbyCookTime: 10
   shopListItemPrefab: {fileID: 7384912166746088519, guid: 6d757c5b1e9ab0e40b12b144cb71c68e,

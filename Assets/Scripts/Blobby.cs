@@ -14,12 +14,12 @@ public class Blobby : MonoBehaviour
 	public float currentHunger;
 	public float maxHunger = 100;
 
-	public float boredChance = .5f;
+	public float angryChance = .1f;
 	public float hungerCooldown = 10;
 	public float thinkingCooldown = 5;
 	public float wanderCooldown = 10;
-	public float attackCooldown = 10;
-	public float hungerTick = 5f;
+	public float attackCooldown = 7.5f;
+	public float hungerTick = 10f;
 
 	public float wanderMaxDistance = 5;
 	public float maxMovementSpeed = 2.5f;
@@ -28,26 +28,28 @@ public class Blobby : MonoBehaviour
 	public float blobbyBumpChance = .5f;
 	public float blobbyAttack = 10;
 
-	public float worth = 1;
+	public float chonk = 1;
 
 	float speed;
 	Vector3 wanderLocation;
 	bool isWandering = false;
 	bool isDead = false;
 	bool isHungry = false;
-	bool isAngry = false;
 	float hungerTime;
 	float thinkingTime;
 	float wanderingTime;
 	float attackTime;
+	float timeAlive = 0;
 	SpriteRenderer spriteRenderer;
 	EventLogManager log;
 	ShopManager shopManager;
+	SoundManager sound;
 	Image hpBar;
 	Image hungerBar;
 
 	private void Awake()
 	{
+		sound = SoundManager.GetManager();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		log = EventLogManager.GetManager();
 		shopManager = ShopManager.GetManager();
@@ -62,7 +64,7 @@ public class Blobby : MonoBehaviour
 		}
 
 		currentHP = maxHP;
-		currentHunger = maxHunger / 2;
+		currentHunger = maxHunger * .75f;
 		hungerTime = Random.Range(hungerCooldown / 2, hungerCooldown * 1.5f);
 	}
 
@@ -110,9 +112,9 @@ public class Blobby : MonoBehaviour
 			{
 				float hit = Random.Range(5, 10);
 				currentHP -= hit;
-				worth -= hit / 50;
-				if (worth <= 1)
-					worth = 1;
+				chonk -= hit / 50;
+				if (chonk <= 1)
+					chonk = 1;
 				log.AddEvent($"{blobbyName} is starving!");
 			}
 
@@ -144,12 +146,13 @@ public class Blobby : MonoBehaviour
 	{
 		hpBar.transform.localScale = new Vector3(currentHP / maxHP, 1, 1);
 		hungerBar.transform.localScale = new Vector3(currentHunger / maxHunger, 1, 1);
-		transform.localScale = new Vector2(worth, worth);
+		transform.localScale = new Vector2(chonk, chonk);
 	}
 
 	void DoAI()
 	{
 
+		timeAlive += Time.deltaTime;
 		attackTime -= Time.deltaTime;
 
 		if (isWandering)
@@ -160,10 +163,16 @@ public class Blobby : MonoBehaviour
 		thinkingTime -= Time.deltaTime;
 		if (thinkingTime <= 0)
 		{
+
+			if (Random.value < (angryChance*chonk)) {
+				HulkSmash();
+			}
+
 			if (isHungry)
 			{
 				FindFood();
 			}
+			
 			if (!isWandering)
 			{
 
@@ -188,6 +197,11 @@ public class Blobby : MonoBehaviour
 		transform.position = Vector2.MoveTowards(transform.position, wanderLocation, step);
 
 		wanderingTime -= Time.deltaTime;
+
+		if (Random.value < 0.25)
+		{
+			sound.PlayRandomMovementClip();
+		}
 
 		if (wanderingTime <= 0 || Vector2.Distance(transform.position, wanderLocation) < 0.1)
 		{
@@ -224,26 +238,58 @@ public class Blobby : MonoBehaviour
 				currentHP += foodValue;
 				if (currentHP > maxHP)
 					currentHP = maxHP;
+				sound.PlayRandomHealClip();
 			}
 			else
 			{
 				currentHunger += foodValue;
 				if (currentHunger > maxHunger)
 				{
-					worth += foodValue / 100;
+					chonk += foodValue / 200;
 				}
+				sound.PlayRandomFoodClip();
 			}
-
+			
 			isWandering = false;
 			Destroy(f.gameObject);
 		}
 
 		if (b != null && Random.value > blobbyBumpChance && attackTime <= 0)
 		{
-			b.currentHP -= Random.Range(blobbyAttack * 0.5f, blobbyAttack * 1.5f);
+			b.currentHP -= Random.Range(blobbyAttack * 0.5f, blobbyAttack * 1.5f) * chonk;
 			attackTime += Random.Range(attackCooldown * 0.5f, attackCooldown * 1.5f);
 			log.AddEvent($"{blobbyName} attacks {b.blobbyName}!");
+			sound.PlayRandomHitClip();
 		}
+
+	}
+
+	public float GetBlobWorth()
+	{
+		return 10 + ((timeAlive) * chonk * (currentHP / maxHP));
+	}
+
+	public void HulkSmash()
+	{
+		GameObject[] blobbies = GameObject.FindGameObjectsWithTag("Blobby");
+		if (blobbies.Length <= 1)
+			return;
+
+		GameObject victim = blobbies[Random.Range(0, blobbies.Length)];
+		while(victim == gameObject)
+		{
+			victim = blobbies[Random.Range(0, blobbies.Length)];
+		}
+		
+		Blobby b = victim.GetComponent<Blobby>();
+
+		log.AddEvent($"{blobbyName} gets mad at {b.blobbyName} and attacks!");
+
+		wanderLocation = victim.transform.position;
+		attackTime = 0;
+		isWandering = true;
+		speed = Random.Range(maxMovementSpeed / 2, maxMovementSpeed);
+		wanderingTime = wanderCooldown;
 
 	}
 

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Clock : MonoBehaviour
 {
 
+	GameData gameData;
 	HUD hud;
 
 	[Range(0, 23)]
@@ -18,6 +20,7 @@ public class Clock : MonoBehaviour
 	void Start()
 	{
 		hud = HUD.GetHUD();
+		gameData = GameData.GetData();
 		nextMinute = Time.time;
 	}
 
@@ -25,8 +28,11 @@ public class Clock : MonoBehaviour
 	void Update()
 	{
 
-		if (minute <= 0 && hour <= 0)
+		if (minute <= 0 && hour <= 0) {
+			CompleteGame();
 			return;
+		}
+			
 
 		if (Time.time > nextMinute)
 		{
@@ -58,5 +64,16 @@ public class Clock : MonoBehaviour
 
 	}
 
+	void CompleteGame()
+	{
+		GameObject[] blobs = GameObject.FindGameObjectsWithTag("Blobby");
+		gameData.blobbiesKeptAlive = blobs.Length;
+		foreach(GameObject go in blobs)
+		{
+			Blobby blob = go.GetComponent<Blobby>();
+			gameData.finalScore += (int)(blob.GetBlobWorth() * 2);
+		}
+		SceneManager.LoadScene("GameComplete");
+	}
 
 }
