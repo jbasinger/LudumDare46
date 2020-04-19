@@ -253,8 +253,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1a4cf9fd0ab6947ab11a39472dcafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hud: {fileID: 0}
-  queueLength: 3
+  energySprite: {fileID: -3360242920267889608, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
+    type: 3}
+  blobbySprite: {fileID: 21300000, guid: cb61f96bce2d1874ab528ee4317fc9ea, type: 3}
+  cost: 0
+  queueLength: 5
+  blobbyCookTime: 10
+  shopListItemPrefab: {fileID: 7384912166746088519, guid: 6d757c5b1e9ab0e40b12b144cb71c68e,
+    type: 3}
+  blobListItemPrefab: {fileID: 1434701904, guid: 616f644a2cd802c468c6037e826d13c3,
+    type: 3}
+  blobbyPrefab: {fileID: 8198144179369484865, guid: 627ba0dc4b7b6d347ac3ec45cea54515,
+    type: 3}
 --- !u!1 &5220276608816388244
 GameObject:
   m_ObjectHideFlags: 0

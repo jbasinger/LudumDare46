@@ -10,9 +10,15 @@ public class EventLogManager : MonoBehaviour
 	
 	HUD hud;
 
+	public static EventLogManager GetManager()
+	{
+		return GameObject.Find("EventLogManager").GetComponent<EventLogManager>();
+	}
+
 	private void Start()
 	{
 		hud = HUD.GetHUD();
+		AddEvent("Welcome!");
 	}
 
 	public void AddEvent(string evt){

@@ -28,13 +28,12 @@ public class HUD : MonoBehaviour
 
 	void Start()
 	{
-		ClearAll();
-		panelParent.SetActive(false);
+		panelParent.transform.localScale = Vector3.zero;
 	}
 
 	void ClearAll()
 	{
-		for(int i = 0; i < menuPanel.transform.childCount; i++)
+		for (int i = 0; i < menuPanel.transform.childCount; i++)
 		{
 			Destroy(menuPanel.transform.GetChild(i).gameObject);
 		}
@@ -53,23 +52,31 @@ public class HUD : MonoBehaviour
 		return GameObject.Find("HUD").GetComponent<HUD>();
 	}
 
-	public void ToggleMenu(Menu item, List<GameObject> itemList)
+	public bool ToggleMenu(Menu item, List<GameObject> itemList)
 	{
+
+		ClearAll();
+
 		if (currentMenu == item)
 		{
-			panelParent.SetActive(false);
+			panelParent.transform.localScale = Vector3.zero;
 			currentMenu = Menu.None;
-			return;
+			foreach(GameObject g in itemList)
+			{
+				Destroy(g);
+			}
+			return false;
 		}
 
 		currentMenu = item;
-		panelParent.SetActive(true);
-		ClearAll();
+		panelParent.transform.localScale = Vector3.one;
 
-		foreach(GameObject g in itemList)
+		foreach (GameObject g in itemList)
 		{
-			g.transform.SetParent(menuPanel.transform,false);
+			g.transform.SetParent(menuPanel.transform);
 		}
+		
+		return true;
 
 	}
 

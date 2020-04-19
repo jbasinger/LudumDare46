@@ -34,16 +34,17 @@ public class ShopManager : MonoBehaviour, IShopManager
 	public bool isPlacingItem;
 	public GameObject itemParent;
 	public int coins = 10000;
-	public EventLogManager logManager;
 	public ShopItemLabel shopItemLabelPrefab;
 	public List<GameObject> shopItemPrefabs = new List<GameObject>();
 
 	HUD hud;
+	EventLogManager logManager;
 	PotentialPurchaseItem itemBeingBought;
 	
 	void Start()
 	{
 		hud = HUD.GetHUD();
+		logManager = EventLogManager.GetManager();
 	}
 
 	void Update()
@@ -102,7 +103,9 @@ public class ShopManager : MonoBehaviour, IShopManager
 			label.SetShopItem(i++, shopItem, this);
 			itemList.Add(label.gameObject);
 		}
+
 		hud.ToggleMenu(Menu.Shop, itemList);
+
 	}
 
 }
