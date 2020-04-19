@@ -22,7 +22,6 @@ public class QueuedBlobby
 
 public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 {
-
 	public Sprite energySprite;
 	public Sprite blobbySprite;
 	public int cost;
@@ -34,6 +33,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 	public GameObject blobbyPrefab;
 
 	private HUD hud;
+	private EventLogManager log;
 	private List<QueuedBlobby> queuedBlobbies = new List<QueuedBlobby>();
 	private List<QueuedBlobby> doneBlobbys = new List<QueuedBlobby>();
 	private List<GameObject> itemLabels = new List<GameObject>();
@@ -42,6 +42,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 	void Awake()
 	{
 		hud = HUD.GetHUD();
+		log = EventLogManager.GetManager();
 		StopSpawner();
 	}
 
@@ -66,6 +67,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 		{
 			GameObject freshBlobby = Instantiate(blobbyPrefab);
 			freshBlobby.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle.normalized * 3;
+			log.AddEvent($"{b.Name} is born!");
 			queuedBlobbies.Remove(b);
 			didOne = true;
 		}
@@ -188,6 +190,7 @@ public class BlobbySpawner : MonoBehaviour, IShopItem, IShopManager
 			hud.ToggleMenu(Menu.None, new List<GameObject>());
 			CleanGameObjectRefs();
 			UpdateMenu();
+			log.AddEvent("You begin to grow a blobby.");
 		}
 	}
 }
