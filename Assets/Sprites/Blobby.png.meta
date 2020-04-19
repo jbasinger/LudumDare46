@@ -104,6 +104,9 @@ TextureImporter:
   - first:
       213: -697117838862366916
     second: Blobby_29
+  - first:
+      213: 5272380504127041052
+    second: Blobby_30
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -847,6 +850,27 @@ TextureImporter:
       bones: []
       spriteID: c374500e4075356f0800000000000000
       internalID: -697117838862366916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blobby_30
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 422
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1eef2d52224b2940800000000000000
+      internalID: 5272380504127041052
       vertices: []
       indices: 
       edges: []
