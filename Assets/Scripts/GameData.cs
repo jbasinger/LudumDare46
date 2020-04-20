@@ -8,6 +8,7 @@ public class GameData : MonoBehaviour
 	public int blobbiesKeptAlive;
 	public int blobbiesSacrificed;
 	public int finalScore;
+	public int startingCoins = 300;
 	public void ResetData()
 	{
 		blobbiesKeptAlive = 0;

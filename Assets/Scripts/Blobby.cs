@@ -123,7 +123,7 @@ public class Blobby : MonoBehaviour
 				currentHP += Random.Range(5, 10);
 			}
 
-			isHungry = (currentHunger / maxHP) <= 0.5;
+			isHungry = currentHunger < maxHunger;
 			if (isHungry)
 			{
 				log.AddEvent($"{blobbyName} is getting hungry.");

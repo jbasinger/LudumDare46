@@ -8,6 +8,7 @@ public class Clock : MonoBehaviour
 
 	GameData gameData;
 	HUD hud;
+	ShopManager shop;
 
 	[Range(0, 23)]
 	public int hour = 8;
@@ -21,6 +22,7 @@ public class Clock : MonoBehaviour
 	{
 		hud = HUD.GetHUD();
 		gameData = GameData.GetData();
+		shop = ShopManager.GetManager();
 		nextMinute = Time.time;
 	}
 
@@ -71,7 +73,7 @@ public class Clock : MonoBehaviour
 		foreach(GameObject go in blobs)
 		{
 			Blobby blob = go.GetComponent<Blobby>();
-			gameData.finalScore += (int)(blob.GetBlobWorth() * 2);
+			gameData.finalScore += (int)(blob.GetBlobWorth() * 2) + shop.coins;
 		}
 		SceneManager.LoadScene("GameComplete");
 	}

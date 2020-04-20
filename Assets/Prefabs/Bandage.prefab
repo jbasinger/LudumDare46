@@ -95,17 +95,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cae8d7cd1ba2944a489ad8e26b6d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodClips:
-  - {fileID: 8300000, guid: 4779e0af6f532bf44a932c6e90986cf9, type: 3}
-  - {fileID: 8300000, guid: 1f0df9d7d42870b49805ffd0c8319e47, type: 3}
-  healClips:
-  - {fileID: 8300000, guid: 05cd6eff5c835d44fb729223cf0de361, type: 3}
   foodName: Bandage
   itemSprite: {fileID: 4091889185925811, guid: cd3fec745a0e9a94aaf06cc01b408dc0, type: 3}
   currencySprite: {fileID: -4189228413954895439, guid: cd3fec745a0e9a94aaf06cc01b408dc0,
     type: 3}
   cost: 20
-  replenish: 50
+  replenish: 25
   type: 2
 --- !u!58 &4499748414815934776
 CircleCollider2D:

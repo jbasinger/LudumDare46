@@ -20,7 +20,7 @@ public class GameComplete : MonoBehaviour
 		blobsSaved.text = $"You saved {data.blobbiesKeptAlive} blobbies!";
 		blobsSacd.text = $"You used {data.blobbiesSacrificed} blobbies!";
 		coinsMade.text = $"You made {data.finalScore.ToString("n0")} coins!";
-
+		data.startingCoins = data.finalScore;
 	}
 
 	public void GoToMainMenu()

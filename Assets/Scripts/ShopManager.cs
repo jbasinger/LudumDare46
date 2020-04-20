@@ -33,13 +33,14 @@ public class ShopManager : MonoBehaviour, IShopManager
 
 	public bool isPlacingItem;
 	public GameObject itemParent;
-	public int coins = 10000;
+	public int coins;
 	public ShopItemLabel shopItemLabelPrefab;
 	public List<GameObject> shopItemPrefabs = new List<GameObject>();
 	public float coinCooldown = 2;
 	public float coinPerProc = 1;
 	public float coinTime;
 
+	GameData gameData;
 	HUD hud;
 	EventLogManager logManager;
 	PotentialPurchaseItem itemBeingBought;
@@ -52,10 +53,12 @@ public class ShopManager : MonoBehaviour, IShopManager
 
 	void Start()
 	{
+		gameData = GameData.GetData();
 		sound = SoundManager.GetManager();
 		hud = HUD.GetHUD();
 		logManager = EventLogManager.GetManager();
 		coinTime = coinCooldown;
+		coins = gameData.startingCoins;
 	}
 
 	void Update()
